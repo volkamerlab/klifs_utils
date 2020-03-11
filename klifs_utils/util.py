@@ -9,6 +9,18 @@ import pandas as pd
 
 
 def abc_idlist_to_dataframe(abc_idlist):
+    """
+
+    Parameters
+    ----------
+    abc_idlist : list of acb.IDList
+        List of labeled list objects from abstract base classes module.
+
+    Returns
+    -------
+    pandas.DataFrame
+        Table with list labels as column names.
+    """
 
     result = abc_idlist
 
