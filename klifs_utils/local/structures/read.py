@@ -7,63 +7,50 @@ Read structure files from disc (locally).
 
 from pathlib import Path
 
+# Redundancy here - think about alternatives.
 
-def complex(klifs_download_path, species, kinase_name, pdb_id, alt=None, chain=None):
-    """
 
-    Parameters
-    ----------
-    klifs_download_path
-    species
-    kinase_name
-    pdb_id
-    alt
-    chain
+def complex(klifs_download_path, kinase_name, pdb_id, alt=None, chain=None, species='HUMAN'):
 
-    Returns
-    -------
-
-    """
-
-    mol2_path = _mol2_path(klifs_download_path, species, kinase_name, pdb_id, 'complex', alt, chain)
+    mol2_path = _mol2_path('complex', klifs_download_path, kinase_name, pdb_id, alt, chain, species)
     structure = _read_with_biopandas(mol2_path)
 
     return structure
 
 
-def protein(klifs_download_path, species, kinase_name, pdb_id, alt, chain):
+def protein(klifs_download_path, kinase_name, pdb_id, alt=None, chain=None, species='HUMAN'):
 
-    mol2_path = _mol2_path(klifs_download_path, species, kinase_name, pdb_id, 'protein', alt, chain)
+    mol2_path = _mol2_path('protein', klifs_download_path, kinase_name, pdb_id, alt, chain, species)
     structure = _read_with_biopandas(mol2_path)
 
     return structure
 
 
-def pocket(klifs_download_path, species, kinase_name, pdb_id, alt, chain):
+def pocket(klifs_download_path, kinase_name, pdb_id, alt=None, chain=None, species='HUMAN'):
 
-    mol2_path = _mol2_path(klifs_download_path, species, kinase_name, pdb_id, 'pocket', alt, chain)
+    mol2_path = _mol2_path('pocket', klifs_download_path, kinase_name, pdb_id, alt, chain, species)
     structure = _read_with_biopandas(mol2_path)
 
     return structure
 
 
-def ligand(klifs_download_path, species, kinase_name, pdb_id, alt, chain):
+def ligand(klifs_download_path, kinase_name, pdb_id, alt=None, chain=None, species='HUMAN'):
 
-    mol2_path = _mol2_path(klifs_download_path, species, kinase_name, pdb_id, 'ligand', alt, chain)
+    mol2_path = _mol2_path('ligand', klifs_download_path, kinase_name, pdb_id, alt, chain, species)
     structure = _read_with_biopandas(mol2_path)
 
     return structure
 
 
-def water(klifs_download_path, species, kinase_name, pdb_id, alt, chain):
+def water(klifs_download_path, kinase_name, pdb_id, alt=None, chain=None, species='HUMAN'):
 
-    mol2_path = _mol2_path(klifs_download_path, species, kinase_name, pdb_id, 'water', alt, chain)
+    mol2_path = _mol2_path('water', klifs_download_path, kinase_name, pdb_id, alt, chain, species)
     structure = _read_with_biopandas(mol2_path)
 
     return structure
 
 
-def _mol2_path(klifs_download_path, species, kinase_name, pdb_id, structure_type, alt=None, chain=None):
+def _mol2_path(structure_type, klifs_download_path, kinase_name, pdb_id, alt, chain, species):
 
     klifs_download_path = Path(klifs_download_path)
     species = species.upper()
@@ -73,4 +60,8 @@ def _mol2_path(klifs_download_path, species, kinase_name, pdb_id, structure_type
 
 
 def _read_with_biopandas(mol2_path):
+    pass
+
+
+def _read_with_rdkit(mol2_path):
     pass
