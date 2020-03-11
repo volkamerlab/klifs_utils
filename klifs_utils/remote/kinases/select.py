@@ -5,6 +5,13 @@ Utility functions to work with KLIFS data
 Select a set of kinase groups, kinase families, kinase names, or kinase KLIFS IDs.
 """
 
+from bravado.client import SwaggerClient
+
+from klifs_utils.util import abc_idlist_to_dataframe
+
+KLIFS_API_DEFINITIONS = "http://klifs.vu-compmedchem.nl/swagger/swagger.json"
+KLIFS_CLIENT = SwaggerClient.from_url(KLIFS_API_DEFINITIONS, config={'validate_responses': False})
+
 
 def kinase_groups():
     """
@@ -16,16 +23,16 @@ def kinase_groups():
         Kinase group names.
     """
 
-    pass
+    return KLIFS_CLIENT.Information.get_kinase_groups().response().result
 
 
-def kinase_families(kinase_group):
+def kinase_families(kinase_group=None):
     """
     Get all kinase families for a kinase group.
 
     Parameters
     ----------
-    kinase_group : str
+    kinase_group : None or str
         Kinase group name.
 
     Returns
@@ -34,10 +41,12 @@ def kinase_families(kinase_group):
         Kinase family names.
     """
 
-    pass
+    return KLIFS_CLIENT.Information.get_kinase_families(
+        kinase_group=kinase_group
+    ).response().result
 
 
-def kinase_names(kinase_group, kinase_family, species):
+def kinase_names(kinase_group=None, kinase_family=None, species=None):
     """
     Get all kinase names for kinases belonging to a given kinase group, kinase family and/or species.
 
@@ -56,24 +65,26 @@ def kinase_names(kinase_group, kinase_family, species):
         Kinase names.
     """
 
-    pass
+    results = KLIFS_CLIENT.Information.get_kinase_names(
+        kinase_group=kinase_group,
+        kinase_family=kinase_family,
+        species=species
+    ).response().result
+
+    return abc_idlist_to_dataframe(results)
 
 
-def kinase_ids(kinase_group, kinase_family, kinase_name, species):
+def kinase_ids(kinase_name, species=None):
     """
     Get all KLIFS IDs for kinases belonging to a given kinase group, kinase family, species
     and/or with a given kinase name.
 
     Parameters
     ----------
-    kinase_group : str
-        Kinase group name.
-    kinase_family : str
-        Kinase family name.
-    species : str
-        Species name.
     kinase_name : str
         Kinase name.
+    species : None or str
+        Species name.
 
     Returns
     -------
@@ -81,4 +92,9 @@ def kinase_ids(kinase_group, kinase_family, kinase_name, species):
         KLIFS kinase IDs.
     """
 
-    pass
+    results = KLIFS_CLIENT.Information.get_kinase_ID(
+        kinase_name=kinase_name,
+        species=species
+    ).response().result
+
+    return abc_idlist_to_dataframe(results)
