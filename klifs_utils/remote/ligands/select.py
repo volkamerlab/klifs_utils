@@ -16,12 +16,12 @@ KLIFS_CLIENT = SwaggerClient.from_url(KLIFS_API_DEFINITIONS, config={'validate_r
 
 def ligand_ids(kinase_ids):
     """
-    Get ligand IDs and details from KLIFS kinase ID.
+    Get ligand IDs and details from KLIFS kinase ID(s).
 
     Parameters
     ----------
     kinase_ids : int or list of int
-        KLIFS kinase ID.
+        KLIFS kinase ID(s).
 
     Returns
     -------
@@ -45,12 +45,12 @@ def ligand_ids(kinase_ids):
 
 def structure_ids(ligand_ids):
     """
-    Get structure IDs and details from KLIFS ligand ID.
+    Get structure IDs and details from KLIFS ligand ID(s).
 
     Parameters
     ----------
     ligand_ids : int or list of int
-        KLIFS ligand ID.
+        KLIFS ligand ID(s).
 
     Returns
     -------
