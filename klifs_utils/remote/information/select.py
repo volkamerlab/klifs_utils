@@ -16,7 +16,6 @@ def kinase_groups():
         Kinase group names.
     """
 
-    #kinase_groups = information.kinase_groups()
     pass
 
 
@@ -35,7 +34,6 @@ def kinase_families(kinase_group):
         Kinase family names.
     """
 
-    #kinase_families_by_group = information.kinase_families(kinase_group)
     pass
 
 
@@ -58,7 +56,6 @@ def kinase_names(kinase_group, kinase_family, species):
         Kinase names.
     """
 
-    #kinase_names = information.kinase_names(kinase_group, kinase_family, species)
     pass
 
 
@@ -84,5 +81,4 @@ def kinase_ids(kinase_group, kinase_family, kinase_name, species):
         KLIFS kinase IDs.
     """
 
-    #kinase_data = information.kinase_ID(kinase_name)
     pass
