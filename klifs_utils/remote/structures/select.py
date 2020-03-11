@@ -15,15 +15,17 @@ KLIFS_CLIENT = SwaggerClient.from_url(KLIFS_API_DEFINITIONS, config={'validate_r
 
 def structures_from_structure_id(structure_ids):
     """
-    Get structure details from KLIFS structure ID.
+    Get structure details from KLIFS structure ID(s).
 
     Parameters
     ----------
-    structure_id : int or list of int
+    structure_ids : int or list of int
+        KLIFS structure ID(s).
 
     Returns
     -------
-
+    pandas.DataFrame
+        Structure details.
     """
 
     if isinstance(structure_ids, int):
@@ -35,6 +37,19 @@ def structures_from_structure_id(structure_ids):
 
 
 def structures_from_kinase_id(kinase_ids):
+    """
+    Get structure details from KLIFS kianse ID(s).
+
+    Parameters
+    ----------
+    kinase_ids : int or list of int
+        KLIFS kinase ID(s).
+
+    Returns
+    -------
+    pandas.DataFrame
+        Structure details.
+    """
 
     if isinstance(kinase_ids, int):
         kinase_ids = [kinase_ids]
@@ -45,6 +60,19 @@ def structures_from_kinase_id(kinase_ids):
 
 
 def structures_from_pdb_id(pdb_ids):
+    """
+    Get structure details from PDB ID(s).
+
+    Parameters
+    ----------
+    pdb_ids : str or list of str
+        PDB ID(s).
+
+    Returns
+    -------
+    pandas.DataFrame
+        Structure details.
+    """
 
     if isinstance(pdb_ids, str):
         pdb_ids = [pdb_ids]
