@@ -6,6 +6,7 @@ Select a set of kinase groups, kinase families, kinase names, or kinase KLIFS ID
 """
 
 from bravado.client import SwaggerClient
+import pandas as pd
 
 from klifs_utils.util import abc_idlist_to_dataframe
 
@@ -61,8 +62,8 @@ def kinase_names(kinase_group=None, kinase_family=None, species=None):
 
     Returns
     -------
-    list of str
-        Kinase names.
+    pandas.DataFrame
+        Kinase names with details.
     """
 
     results = KLIFS_CLIENT.Information.get_kinase_names(
@@ -74,10 +75,9 @@ def kinase_names(kinase_group=None, kinase_family=None, species=None):
     return abc_idlist_to_dataframe(results)
 
 
-def kinase_ids(kinase_name, species=None):
+def kinase_from_kinase_name(kinase_name, species=None):
     """
-    Get all KLIFS IDs for kinases belonging to a given kinase group, kinase family, species
-    and/or with a given kinase name.
+    Get all kinases belonging to a given kinase group, kinase family, species and/or with a given kinase name.
 
     Parameters
     ----------
@@ -88,8 +88,8 @@ def kinase_ids(kinase_name, species=None):
 
     Returns
     -------
-    list of int
-        KLIFS kinase IDs.
+    pandas.DataFrame
+        Kinase(s) details.
     """
 
     results = KLIFS_CLIENT.Information.get_kinase_ID(
@@ -98,3 +98,35 @@ def kinase_ids(kinase_name, species=None):
     ).response().result
 
     return abc_idlist_to_dataframe(results)
+
+
+def kinase_from_kinase_ids(kinase_ids):
+    """
+    Get all kinases for KLIFS kinase ID(s).
+
+    Parameters
+    ----------
+    kinase_ids : int or list of int
+        KLIFS kinase ID(s).
+
+    Returns
+    -------
+    pandas.DataFrame
+        Kinase(s) details.
+    """
+
+    if isinstance(kinase_ids, int):
+        kinase_ids = [kinase_ids]
+
+    results = []
+
+    for kinase_id in kinase_ids:
+
+        result = KLIFS_CLIENT.Information.get_kinase_information(
+            kinase_ID=[kinase_id]
+        ).response().result
+        result_df = abc_idlist_to_dataframe(result)
+        result_df.insert(0, 'ligand_id', kinase_id, True)
+        results.append(result_df)
+
+    return pd.concat(results)
