@@ -4,6 +4,7 @@ dependencies:
     # Base depends
   - python
   - pip
+  - pandas
 
     # Testing
   - pytest
@@ -11,6 +12,7 @@ dependencies:
   - codecov
 
     # Pip-only installs
-  #- pip:
+  - pip:
   #  - codecov
+    - bravado
 
