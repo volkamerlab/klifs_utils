@@ -11,7 +11,7 @@ from pathlib import Path
 import pandas as pd
 
 
-def from_files(path_klifs_overview, path_klifs_export):
+def from_files(klifs_overview_path, klifs_export_path):
     """
     Get KLIFS metadata as DataFrame and save as file in same folder as input files.
 
@@ -21,9 +21,9 @@ def from_files(path_klifs_overview, path_klifs_export):
 
     Parameters
     ----------
-    path_klifs_overview : pathlib.Path or str
+    klifs_overview_path : pathlib.Path or str
         Path to KLIFS download file `overview.csv` containing mainly KLIFS alignment-related metadata.
-    path_klifs_export : pathlib.Path or str
+    klifs_export_path : pathlib.Path or str
         Path to KLIFS download file `KLIFS_download/KLIFS_export.csv` containing mainly structure-related metadata.
 
     Returns
@@ -32,27 +32,27 @@ def from_files(path_klifs_overview, path_klifs_export):
         Metadata of KLIFS download, merged from two KLIFS metadata files.
     """
 
-    path_klifs_overview = Path(path_klifs_overview)
-    path_klifs_export = Path(path_klifs_export)
+    klifs_overview_path = Path(klifs_overview_path)
+    klifs_export_path = Path(klifs_export_path)
 
-    klifs_overview = _from_klifs_overview_file(path_klifs_overview)
-    klifs_export = _from_klifs_export_file(path_klifs_export)
+    klifs_overview = _from_klifs_overview_file(klifs_overview_path)
+    klifs_export = _from_klifs_export_file(klifs_export_path)
 
     klifs_metadata = _merge_files(klifs_overview, klifs_export)
     klifs_metadata = _add_filepaths(klifs_metadata)
 
-    klifs_metadata.to_csv(path_klifs_overview.parent / 'klifs_metadata.csv')
+    klifs_metadata.to_csv(klifs_overview_path.parent / 'klifs_metadata.csv', index=False)
 
     return klifs_metadata
 
 
-def _from_klifs_export_file(klifs_export_file):
+def _from_klifs_export_file(klifs_export_path):
     """
     Read KLIFS_export.csv file from KLIFS database download as DataFrame and unify format with overview.csv format.
 
     Parameters
     ----------
-    klifs_export_file : pathlib.Path or str
+    klifs_export_path : pathlib.Path or str
         Path to KLIFS_export.csv file from KLIFS database download.
 
     Returns
@@ -61,7 +61,7 @@ def _from_klifs_export_file(klifs_export_file):
         Data loaded and formatted: KLIFS_export.csv file from KLIFS database download.
     """
 
-    klifs_export = pd.read_csv(Path(klifs_export_file))
+    klifs_export = pd.read_csv(Path(klifs_export_path))
 
     # Unify column names with column names in overview.csv
     klifs_export.rename(
@@ -97,13 +97,13 @@ def _from_klifs_export_file(klifs_export_file):
     return klifs_export
 
 
-def _from_klifs_overview_file(klifs_overview_file):
+def _from_klifs_overview_file(klifs_overview_path):
     """
     Read overview.csv file from KLIFS database download as DataFrame and unify format with KLIFS_export.csv format.
 
     Parameters
     ----------
-    klifs_overview_file : pathlib.Path or str
+    klifs_overview_path : pathlib.Path or str
         Path to overview.csv file from KLIFS database download.
 
     Returns
@@ -112,7 +112,7 @@ def _from_klifs_overview_file(klifs_overview_file):
         Data loaded and formatted: overview.csv file from KLIFS database download.
     """
 
-    klifs_overview = pd.read_csv(Path(klifs_overview_file))
+    klifs_overview = pd.read_csv(Path(klifs_overview_path))
 
     # Unify column names with column names in KLIFS_export.csv
     klifs_overview.rename(
@@ -133,7 +133,7 @@ def _from_klifs_overview_file(klifs_overview_file):
 
 def _format_kinase_name(kinase_name):
     """
-    Format kinase name(s): One or multiple kinase names (additional names in brackets) are formated to list of
+    Format kinase name(s): One or multiple kinase names (additional names in brackets) are formatted to list of
     kinase names.
 
     Examples:
@@ -250,18 +250,18 @@ def _add_filepaths(klifs_metadata):
     for index, row in klifs_metadata.iterrows():
 
         # Depending on whether alternate model and chain ID is given build file path:
-        path_mol2 = Path('.') / row.species.upper() / row.kinase
+        mol2_path = Path('.') / row.species.upper() / row.kinase
 
         if row.alternate_model != '-' and row.chain != '-':
-            path_mol2 = path_mol2 / f'{row.pdb_id}_alt{row.alternate_model}_chain{row.chain}'
+            mol2_path = mol2_path / f'{row.pdb_id}_alt{row.alternate_model}_chain{row.chain}'
         elif row.alternate_model == '-' and row.chain != '-':
-            path_mol2 = path_mol2 / f'{row.pdb_id}_chain{row.chain}'
+            mol2_path = mol2_path / f'{row.pdb_id}_chain{row.chain}'
         elif row.alternate_model == '-' and row.chain == '-':
-            path_mol2 = path_mol2 / f'{row.pdb_id}'
+            mol2_path = mol2_path / f'{row.pdb_id}'
         else:
             raise ValueError(f'Incorrect metadata entry {index}: {row.alternate_model}, {row.chain}')
 
-        filepaths.append(path_mol2)
+        filepaths.append(mol2_path)
 
     klifs_metadata['filepath'] = filepaths
 
