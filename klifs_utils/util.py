@@ -5,6 +5,8 @@ Utility functions to work with KLIFS data
 General utility functions
 """
 
+from pathlib import Path
+
 from biopandas.mol2 import PandasMol2
 from biopandas.pdb import PandasPdb
 import pandas as pd
@@ -39,40 +41,133 @@ def _abc_idlist_to_dataframe(abc_idlist):
     return pd.DataFrame(results_dict)
 
 
-def _mol2_file_to_dataframe(mol2_file):
+def _mol2_path(structure_type, klifs_download_path, species, kinase_name, pdb_id, alt, chain):
     """
-    Get KLIFS structure coordinates from mol2 file.
+    Get mol2 file path.
 
     Parameters
     ----------
-    mol2_file
+    structure_type : str
+        Structure type, i.e. complex, protein, pocket, ligand, or water.
+    klifs_download_path : pathlib.Path or str
+        Path to folder where KLIFS_download folder lives.
+    species : str
+        Species.
+    kinase_name : str
+        Kinase name.
+    pdb_id : str
+        PDB ID.
+    alt : str
+        Alternate model ID.
+    chain : str
+        Chain ID.
+
+    Raises
+    ------
+    ValueError
+        If structure type invalid.
+    FileNotFoundError
+        If file path does not exist.
+
 
     Returns
     -------
-
+    pathlib.Path
+        Path to mol2 path.
     """
-    pass
+
+    structure_types = 'complex protein pocket ligand water'.split()
+
+    if structure_type not in structure_types:
+        raise ValueError(f'Invalid structure type {structure_type}. Choose from {",".join(structure_types)}.')
+
+    klifs_download_path = Path(klifs_download_path)
+    species = species.upper()
+
+    if alt and chain:
+        structure_name = f'{pdb_id}_alt{alt}_chain{chain}'
+    elif alt and not chain:
+        structure_name = f'{pdb_id}_alt{alt}'
+    elif not alt and chain:
+        structure_name = f'{pdb_id}_chain{chain}'
+    else:
+        structure_name = f'{pdb_id}'
+
+    mol2_path = klifs_download_path / species / kinase_name / structure_name / f'{structure_type}.mol2'
+
+    if not mol2_path.exists():
+        raise FileNotFoundError(f'File not found: {mol2_path}.')
+
+    return mol2_path
+
+
+def _mol2_file_to_dataframe(mol2_file):
+    """
+    Get structural data from mol2 file.
+
+    Parameters
+    ----------
+    mol2_file : pathlib.Path or str
+       Path to mol2 file.
+
+    Returns
+    -------
+    pandas.DataFrame
+        Structural data.
+    """
+
+    mol2_file = Path(mol2_file)
+
+    pmol = PandasMol2()
+
+    try:
+        mol2_df = pmol.read_mol2(
+            str(mol2_file),
+            columns={
+                0: ('atom_id', int),
+                1: ('atom_name', str),
+                2: ('x', float),
+                3: ('y', float),
+                4: ('z', float),
+                5: ('atom_type', str),
+                6: ('subst_id', int),
+                7: ('subst_name', str),
+                8: ('charge', float),
+                9: ('backbone', str)
+            }
+        )
+
+    except ValueError:
+        mol2_df = pmol.read_mol2(
+            str(mol2_file)
+        )
+
+    return mol2_df
 
 
 def _mol2_file_to_rdkit_mol(mol2_file):
     """
-    Get KLIFS structure coordinates from mol2 file.
+    Get structural data from mol2 file.
 
     Parameters
     ----------
-    mol2_file
+    mol2_file : pathlib.Path or str
+       Path to mol2 file.
 
     Returns
     -------
-
+    rdkit.Chem.rdchem.Mol
+        Molecule.
     """
 
-    pass
+    mol = Chem.MolFromMol2File(mol2_file)
+
+    return mol
 
 
 def _mol2_text_to_dataframe(mol2_text):
     """
-    Get KLIFS structure coordinates from mol2 text.
+    Get structural data from mol2 text.
 
     Parameters
     ----------
@@ -85,10 +180,10 @@ def _mol2_text_to_dataframe(mol2_text):
         Structural data.
     """
 
-    pmol2 = PandasMol2()
+    pmol = PandasMol2()
 
     try:
-        mol2_df = pmol2._construct_df(
+        mol2_df = pmol._construct_df(
             mol2_text.splitlines(True),
             col_names=[
                 'atom_id', 'atom_name', 'x', 'y', 'z', 'atom_type', 'subst_id', 'subst_name', 'charge', 'backbone'
@@ -98,7 +193,7 @@ def _mol2_text_to_dataframe(mol2_text):
             ]
         )
     except ValueError:
-        mol2_df = pmol2._construct_df(
+        mol2_df = pmol._construct_df(
             mol2_text.splitlines(True),
             col_names=[
                 'atom_id', 'atom_name', 'x', 'y', 'z', 'atom_type', 'subst_id', 'subst_name', 'charge'
@@ -113,7 +208,7 @@ def _mol2_text_to_dataframe(mol2_text):
 
 def _mol2_text_to_rdkit_mol(mol2_text):
     """
-    Get KLIFS structure coordinates from mol2 text.
+    Get structural data from mol2 text.
 
     Parameters
     ----------
@@ -133,7 +228,7 @@ def _mol2_text_to_rdkit_mol(mol2_text):
 
 def _pdb_text_to_dataframe(pdb_text):
     """
-    Get KLIFS structure coordinates from pdb text.
+    Get structural data from pdb text.
 
     Parameters
     ----------
