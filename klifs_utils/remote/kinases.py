@@ -8,7 +8,7 @@ Kinase details.
 from bravado.client import SwaggerClient
 import pandas as pd
 
-from klifs_utils.util import abc_idlist_to_dataframe
+from klifs_utils.util import _abc_idlist_to_dataframe
 
 KLIFS_API_DEFINITIONS = "http://klifs.vu-compmedchem.nl/swagger/swagger.json"
 KLIFS_CLIENT = SwaggerClient.from_url(KLIFS_API_DEFINITIONS, config={'validate_responses': False})
@@ -73,7 +73,7 @@ def kinase_names(kinase_group=None, kinase_family=None, species=None):
         species=species
     ).response().result
 
-    return abc_idlist_to_dataframe(results)
+    return _abc_idlist_to_dataframe(results)
 
 
 def kinase_from_kinase_name(kinase_name, species=None):
@@ -98,7 +98,7 @@ def kinase_from_kinase_name(kinase_name, species=None):
         species=species
     ).response().result
 
-    return abc_idlist_to_dataframe(results)
+    return _abc_idlist_to_dataframe(results)
 
 
 def kinase_from_kinase_ids(kinase_ids):
@@ -126,7 +126,7 @@ def kinase_from_kinase_ids(kinase_ids):
         result = KLIFS_CLIENT.Information.get_kinase_information(
             kinase_ID=[kinase_id]
         ).response().result
-        result_df = abc_idlist_to_dataframe(result)
+        result_df = _abc_idlist_to_dataframe(result)
         result_df.insert(0, 'ligand_id', kinase_id, True)
         results.append(result_df)
 

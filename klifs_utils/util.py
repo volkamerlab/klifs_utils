@@ -6,11 +6,14 @@ General utility functions
 """
 
 from biopandas.mol2 import PandasMol2
+from biopandas.pdb import PandasPdb
 import pandas as pd
+from rdkit import Chem
 
 
-def abc_idlist_to_dataframe(abc_idlist):
+def _abc_idlist_to_dataframe(abc_idlist):
     """
+    Transform ABC IDList object into DataFrame.
 
     Parameters
     ----------
@@ -36,13 +39,40 @@ def abc_idlist_to_dataframe(abc_idlist):
     return pd.DataFrame(results_dict)
 
 
-def mol2_file_to_dataframe(mol2_file):
+def _mol2_file_to_dataframe(mol2_file):
+    """
+    Get KLIFS structure coordinates from mol2 file.
+
+    Parameters
+    ----------
+    mol2_file
+
+    Returns
+    -------
+
+    """
     pass
 
 
-def mol2_text_to_dataframe(mol2_text):
+def _mol2_file_to_rdkit_mol(mol2_file):
     """
-    Get KLIFS residue names and IDs.
+    Get KLIFS structure coordinates from mol2 file.
+
+    Parameters
+    ----------
+    mol2_file
+
+    Returns
+    -------
+
+    """
+
+    pass
+
+
+def _mol2_text_to_dataframe(mol2_text):
+    """
+    Get KLIFS structure coordinates from mol2 text.
 
     Parameters
     ----------
@@ -52,26 +82,76 @@ def mol2_text_to_dataframe(mol2_text):
     Returns
     -------
     pandas.DataFrame
-        Table of mol2 file residue names and IDs.
+        Structural data.
     """
 
-    ppdb = PandasMol2()
+    pmol2 = PandasMol2()
 
-    mol2_df = ppdb._construct_df(
-        mol2_text.splitlines(True),
-        # TODO: Rename 'Residues' to 'subst_name'
-        col_names=['atom_id', 'atom_name', 'x', 'y', 'z', 'atom_type', 'subst_id', 'subst_name', 'charge', 'backbone'],
-        col_types=[int, str, float, float, float, str, int, str, float, str]
-
-    )
+    try:
+        mol2_df = pmol2._construct_df(
+            mol2_text.splitlines(True),
+            col_names=[
+                'atom_id', 'atom_name', 'x', 'y', 'z', 'atom_type', 'subst_id', 'subst_name', 'charge', 'backbone'
+            ],
+            col_types=[
+                int, str, float, float, float, str, int, str, float, str
+            ]
+        )
+    except ValueError:
+        mol2_df = pmol2._construct_df(
+            mol2_text.splitlines(True),
+            col_names=[
+                'atom_id', 'atom_name', 'x', 'y', 'z', 'atom_type', 'subst_id', 'subst_name', 'charge'
+            ],
+            col_types=[
+                int, str, float, float, float, str, int, str, float
+            ]
+        )
 
     return mol2_df
 
 
-def mol2_file_to_rdkit_mol(mol2_file):
-    pass
+def _mol2_text_to_rdkit_mol(mol2_text):
+    """
+    Get KLIFS structure coordinates from mol2 text.
+
+    Parameters
+    ----------
+    mol2_text : str
+       Mol2 file content from KLIFS database.
+
+    Returns
+    -------
+    rdkit.Chem.rdchem.Mol
+        Molecule.
+    """
+
+    mol = Chem.MolFromMol2Block(mol2_text)
+
+    return mol
 
 
+def _pdb_text_to_dataframe(pdb_text):
+    """
+    Get KLIFS structure coordinates from pdb text.
 
-def mol2_text_to_rdkit_mol(mol2_text):
-    pass
+    Parameters
+    ----------
+    pdb_text : str
+       Pdb file content from KLIFS database.
+
+    Returns
+    -------
+    dict of pandas.DataFrame
+        Structural data
+    """
+
+    ppdb = PandasPdb()
+
+    pdb_dict = ppdb._construct_df(
+        pdb_text.splitlines(True)
+    )
+
+    print(f'Structural data keys: {pdb_dict.keys()}')
+
+    return pdb_dict

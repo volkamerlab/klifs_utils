@@ -7,7 +7,7 @@ Interaction details.
 
 from bravado.client import SwaggerClient
 
-from klifs_utils.util import abc_idlist_to_dataframe
+from klifs_utils.util import _abc_idlist_to_dataframe
 
 KLIFS_API_DEFINITIONS = "http://klifs.vu-compmedchem.nl/swagger/swagger.json"
 KLIFS_CLIENT = SwaggerClient.from_url(KLIFS_API_DEFINITIONS, config={'validate_responses': False})
@@ -25,7 +25,7 @@ def interaction_types():
 
     result = KLIFS_CLIENT.Interactions.get_interactions_get_types().response().result
 
-    return abc_idlist_to_dataframe(result)
+    return _abc_idlist_to_dataframe(result)
 
 
 def interaction_fingerprint(structure_ids):
@@ -50,7 +50,7 @@ def interaction_fingerprint(structure_ids):
         structure_ID=structure_ids
     ).response().result
 
-    return abc_idlist_to_dataframe(result)
+    return _abc_idlist_to_dataframe(result)
 
 
 def klifs_pocket_numbering(structure_id):
@@ -72,4 +72,4 @@ def klifs_pocket_numbering(structure_id):
         structure_ID=structure_id
     ).response().result
 
-    return abc_idlist_to_dataframe(result)
+    return _abc_idlist_to_dataframe(result)

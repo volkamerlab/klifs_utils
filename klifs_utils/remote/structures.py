@@ -7,7 +7,7 @@ Structure details.
 
 from bravado.client import SwaggerClient
 
-from klifs_utils.util import abc_idlist_to_dataframe
+from klifs_utils.util import _abc_idlist_to_dataframe
 
 KLIFS_API_DEFINITIONS = "http://klifs.vu-compmedchem.nl/swagger/swagger.json"
 KLIFS_CLIENT = SwaggerClient.from_url(KLIFS_API_DEFINITIONS, config={'validate_responses': False})
@@ -33,7 +33,7 @@ def structures_from_structure_id(structure_ids):
 
     result = KLIFS_CLIENT.Structures.get_structure_list(structure_ID=structure_ids).response().result
 
-    return abc_idlist_to_dataframe(result)
+    return _abc_idlist_to_dataframe(result)
 
 
 def structures_from_kinase_id(kinase_ids):
@@ -56,7 +56,7 @@ def structures_from_kinase_id(kinase_ids):
 
     result = KLIFS_CLIENT.Structures.get_structures_list(kinase_ID=kinase_ids).response().result
 
-    return abc_idlist_to_dataframe(result)
+    return _abc_idlist_to_dataframe(result)
 
 
 def structures_from_pdb_id(pdb_ids):
@@ -79,4 +79,4 @@ def structures_from_pdb_id(pdb_ids):
 
     result = KLIFS_CLIENT.Structures.get_structures_pdb_list(pdb_codes=pdb_ids).response().result
 
-    return abc_idlist_to_dataframe(result)
+    return _abc_idlist_to_dataframe(result)
