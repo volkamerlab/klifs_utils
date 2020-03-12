@@ -1,8 +1,8 @@
 """
 klifs_utils
-Utility functions to work with KLIFS data
+Utility functions to work with KLIFS data (remote)
 
-Get interaction details.
+Interaction details.
 """
 
 from bravado.client import SwaggerClient
@@ -30,7 +30,7 @@ def interaction_types():
 
 def interaction_fingerprint(structure_ids):
     """
-    Get interaction fingerprint from KLIFS structure ID(s).
+    Get interaction fingerprint(s) from KLIFS structure ID(s).
 
     Parameters
     ----------

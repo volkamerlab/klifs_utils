@@ -1,6 +1,8 @@
 """
 klifs_utils
-Read KLIFS structures from KLIFS website (remotely)
+Utility functions to work with KLIFS data (remote)
+
+Structure coordinates.
 """
 
 from bravado.client import SwaggerClient

@@ -1,8 +1,8 @@
 """
 klifs_utils
-Utility functions to work with KLIFS data
+Utility functions to work with KLIFS data (remote)
 
-Select a set of kinase groups, kinase families, kinase names, or kinase KLIFS IDs.
+Kinase details.
 """
 
 from bravado.client import SwaggerClient
@@ -34,7 +34,7 @@ def kinase_families(kinase_group=None):
     Parameters
     ----------
     kinase_group : None or str
-        Kinase group name.
+        Kinase group name (default is None, i.e. all kinase groups are selected).
 
     Returns
     -------
@@ -49,16 +49,17 @@ def kinase_families(kinase_group=None):
 
 def kinase_names(kinase_group=None, kinase_family=None, species=None):
     """
-    Get all kinase names for kinases belonging to a given kinase group, kinase family and/or species.
+    Get all kinase names for kinases belonging to a given kinase group, kinase family and/or species (default is None,
+    i.e. get all kinase names). If multiple parameters are set, only kinases fullfilling all conditions are returned.
 
     Parameters
     ----------
-    kinase_group : str
-        Kinase group name.
-    kinase_family : str
-        Kinase family name.
-    species : str
-        Species name.
+    kinase_group : None or str
+        Kinase group name (default is None, i.e. all kinase groups are selected).
+    kinase_family : None or str
+        Kinase family name (default is None, i.e. all kinase families are selected).
+    species : None or str
+        Species name (default is None, i.e. all species are selected).
 
     Returns
     -------
@@ -77,14 +78,14 @@ def kinase_names(kinase_group=None, kinase_family=None, species=None):
 
 def kinase_from_kinase_name(kinase_name, species=None):
     """
-    Get all kinases belonging to a given kinase group, kinase family, species and/or with a given kinase name.
+    Get all kinases (+details) by kinase name(s).
 
     Parameters
     ----------
     kinase_name : str
         Kinase name.
     species : None or str
-        Species name.
+        Species name (default is None, i.e. all species are selected).
 
     Returns
     -------
@@ -102,7 +103,7 @@ def kinase_from_kinase_name(kinase_name, species=None):
 
 def kinase_from_kinase_ids(kinase_ids):
     """
-    Get all kinases for KLIFS kinase ID(s).
+    Get all kinases (+details) by KLIFS kinase ID(s).
 
     Parameters
     ----------

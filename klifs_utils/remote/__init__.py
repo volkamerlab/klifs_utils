@@ -7,3 +7,4 @@ from . import kinases
 from . import interactions
 from . import ligands
 from . import structures
+from . import coordinates

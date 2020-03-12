@@ -1,8 +1,8 @@
 """
 klifs_utils
-Utility functions to work with KLIFS data
+Utility functions to work with KLIFS data (local)
 
-Read structure files from disc (locally).
+Structure details.
 """
 
 from pathlib import Path

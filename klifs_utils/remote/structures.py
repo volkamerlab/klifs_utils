@@ -1,8 +1,8 @@
 """
 klifs_utils
-Utility functions to work with KLIFS data
+Utility functions to work with KLIFS data (remote)
 
-Select a set of structures.
+Structure details.
 """
 
 from bravado.client import SwaggerClient
@@ -15,7 +15,7 @@ KLIFS_CLIENT = SwaggerClient.from_url(KLIFS_API_DEFINITIONS, config={'validate_r
 
 def structures_from_structure_id(structure_ids):
     """
-    Get structure details from KLIFS structure ID(s).
+    Get structure details by KLIFS structure ID(s).
 
     Parameters
     ----------
@@ -38,7 +38,7 @@ def structures_from_structure_id(structure_ids):
 
 def structures_from_kinase_id(kinase_ids):
     """
-    Get structure details from KLIFS kianse ID(s).
+    Get structure details by KLIFS kinase ID(s).
 
     Parameters
     ----------
@@ -61,7 +61,7 @@ def structures_from_kinase_id(kinase_ids):
 
 def structures_from_pdb_id(pdb_ids):
     """
-    Get structure details from PDB ID(s).
+    Get structure details by PDB ID(s).
 
     Parameters
     ----------

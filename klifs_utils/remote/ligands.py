@@ -1,8 +1,8 @@
 """
 klifs_utils
-Utility functions to work with KLIFS data
+Utility functions to work with KLIFS data (remote)
 
-Get ligand details.
+Ligand details.
 """
 
 from bravado.client import SwaggerClient
@@ -16,7 +16,7 @@ KLIFS_CLIENT = SwaggerClient.from_url(KLIFS_API_DEFINITIONS, config={'validate_r
 
 def ligand_ids(kinase_ids):
     """
-    Get ligand IDs and details from KLIFS kinase ID(s).
+    Get ligand ID(s) and details by KLIFS kinase ID(s).
 
     Parameters
     ----------
@@ -45,7 +45,7 @@ def ligand_ids(kinase_ids):
 
 def structure_ids(ligand_ids):
     """
-    Get structure IDs and details from KLIFS ligand ID(s).
+    Get structure ID(s) and details by KLIFS ligand ID(s).
 
     Parameters
     ----------
