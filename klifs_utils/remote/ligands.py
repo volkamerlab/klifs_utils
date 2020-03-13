@@ -5,13 +5,10 @@ Utility functions to work with KLIFS data (remote)
 Ligand details.
 """
 
-from bravado.client import SwaggerClient
 import pandas as pd
 
 from klifs_utils.util import _abc_idlist_to_dataframe
-
-KLIFS_API_DEFINITIONS = "http://klifs.vu-compmedchem.nl/swagger/swagger.json"
-KLIFS_CLIENT = SwaggerClient.from_url(KLIFS_API_DEFINITIONS, config={'validate_responses': False})
+from klifs_utils.klifs_client import KLIFS_CLIENT
 
 
 def ligand_ids(kinase_ids):

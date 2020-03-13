@@ -5,12 +5,8 @@ Utility functions to work with KLIFS data (remote)
 Structure details.
 """
 
-from bravado.client import SwaggerClient
-
 from klifs_utils.util import _abc_idlist_to_dataframe
-
-KLIFS_API_DEFINITIONS = "http://klifs.vu-compmedchem.nl/swagger/swagger.json"
-KLIFS_CLIENT = SwaggerClient.from_url(KLIFS_API_DEFINITIONS, config={'validate_responses': False})
+from klifs_utils.klifs_client import KLIFS_CLIENT
 
 
 def structures_from_structure_id(structure_ids):
