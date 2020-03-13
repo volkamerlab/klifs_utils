@@ -51,7 +51,7 @@ What is KLIFS and who created it?
 Check out the `klifs_utils` tutorial (Jupyter notebook):
 
 ```bash
-/klifs_utils/tutorial/tutorial.ipynb
+/klifs_utils/docs/tutorial.ipynb
 ```
 
 #### Work with KLIFS data from KLIFS server (remotely)
