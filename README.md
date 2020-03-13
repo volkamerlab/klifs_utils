@@ -33,7 +33,7 @@ What is KLIFS and who created it?
     
     The library lives now in this example path `/path/to/klifs_utils`.
     
-2. Install and activate conda environment `klifs`:
+2. Install and activate conda environment `klifs_utils`:
     ```bash
     conda env create -f /path/to/klifs_utils/devtools/conda_envs/env.yaml
     conda activate klifs
