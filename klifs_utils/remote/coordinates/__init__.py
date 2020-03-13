@@ -6,7 +6,7 @@ Coordinates.
 """
 
 # Add imports of sub-modules here
-from .complex import mol2_to_dataframe, pdb_to_dataframe
-from .protein import mol2_to_dataframe
-from .pocket import mol2_to_dataframe
-from .ligand import mol2_to_dataframe, mol2_to_rdkit_mol
+from . import complex
+from . import protein
+from . import pocket
+from . import ligand
