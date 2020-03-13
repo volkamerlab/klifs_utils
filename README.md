@@ -35,7 +35,7 @@ What is KLIFS and who created it?
     
 2. Install and activate conda environment `klifs`:
     ```bash
-    conda env create -f /path/to/klifs_utils/devtools/env.yaml
+    conda env create -f /path/to/klifs_utils/devtools/conda_envs/env.yaml
     conda activate klifs
     ```
 
