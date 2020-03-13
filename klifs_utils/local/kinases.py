@@ -5,8 +5,6 @@ Utility functions to work with KLIFS data (local)
 Kinase details.
 """
 
-import pandas as pd
-
 
 def kinase_groups(klifs_metadata):
     """
