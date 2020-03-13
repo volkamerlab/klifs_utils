@@ -16,7 +16,7 @@ What is KLIFS and who created it?
 
 > Kinase-Ligand Interaction Fingerprints and Structures database (KLIFS), developed at the Division of Medicinal Chemistry - VU University Amsterdam, is a database that revolves around the protein structure of catalytic kinase domains and the way kinase inhibitors can interact with them
 * KLIFS database: https://klifs.vu-compmedchem.nl
-* KLIFS online serive: https://klifs.vu-compmedchem.nl/swagger
+* KLIFS online service: https://klifs.vu-compmedchem.nl/swagger
 * KLIFS citation
   * Description of the database itself [(*J. Med. Chem.* (2014), **57**, 2, 249-277)]()
   * Description of the online service [(*Nucleic Acids Res.* (2016), **44**, 6, D365–D371)]()
