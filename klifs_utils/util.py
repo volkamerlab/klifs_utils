@@ -11,6 +11,7 @@ from biopandas.mol2 import PandasMol2
 from biopandas.pdb import PandasPdb
 import pandas as pd
 from rdkit import Chem
+from rdkit.Chem import AllChem
 
 
 def _abc_idlist_to_dataframe(abc_idlist):
@@ -161,6 +162,7 @@ def _mol2_file_to_rdkit_mol(mol2_file):
     """
 
     mol = Chem.MolFromMol2File(mol2_file)
+    AllChem.Compute2DCoords(mol)
 
     return mol
 
