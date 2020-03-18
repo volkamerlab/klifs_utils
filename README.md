@@ -44,6 +44,11 @@ What is KLIFS and who created it?
     ```bash
     pip install klifs_utils
     ```
+    
+Alternative if you already have the `klifs_utils` environment installed:
+```bash
+pip install git+https://github.com/volkamerlab/klifs_utils.git@lib-skeleton
+```
 
 
 ### Usage
