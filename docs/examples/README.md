@@ -1,6 +1,6 @@
 # Example use cases of `klifs_utils`
 
-Collect here examples tasks for which `klifs_utils` can be useful. 
+Collect here example tasks for which `klifs_utils` can be useful. 
 
 These examples can (i) illustrate the use of functions that are already implemented and/or (ii) explore functionalities that might be interesting to be added to `klifs_utils`.
 
