@@ -224,6 +224,7 @@ def _mol2_text_to_rdkit_mol(mol2_text):
     """
 
     mol = Chem.MolFromMol2Block(mol2_text)
+    AllChem.Compute2DCoords(mol)
 
     return mol
 
