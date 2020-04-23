@@ -88,6 +88,6 @@ def structures_from_pdb_id(pdb_ids, alt=None, chain=None):
     elif alt is None and chain is not None:
         return result_df[result_df.chain == chain]
     elif alt is not None and chain is not None:
-        return result_df[(result_df.alt == alt) and (result_df.chain == chain)]
+        return result_df[(result_df.alt == alt) & (result_df.chain == chain)]
     else:
         return result_df
