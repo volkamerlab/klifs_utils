@@ -83,9 +83,9 @@ def structures_from_pdb_id(pdb_ids, alt=None, chain=None):
     result_df = _abc_idlist_to_dataframe(result)
 
     # If alt and/or chain are given, filter dataset, else return full dataset
-    if alt is not None:
+    if alt is not None and chain is None:
         return result_df[result_df.alt == alt]
-    elif chain is not None:
+    elif alt is None and chain is not None:
         return result_df[result_df.chain == chain]
     elif alt is not None and chain is not None:
         return result_df[(result_df.alt == alt) and (result_df.chain == chain)]
