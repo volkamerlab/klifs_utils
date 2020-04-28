@@ -66,15 +66,23 @@ def structures_from_pdb_id(pdb_ids, alt=None, chain=None):
     pdb_ids : str or list of str
         PDB ID(s).
     alt : None or str
-        Alternate model.
+        Alternate model. Will only have an effect if only one PDB ID is given.
     chain : None or str
-        Chain.
+        Chain. Will only have an effect if only one PDB ID is given.
 
     Returns
     -------
     pandas.DataFrame
         Structure details.
     """
+
+    # Ignore alternate model and chain input (set to None) in these two cases:
+    # - If multiple PDB IDs are given
+    # - If alternate model or chain indicate that no alternate model or chain is selected
+    if alt in ['', ' ', '-', '_'] or isinstance(pdb_ids, list):
+        alt = None
+    if chain in ['', ' ', '-', '_'] or isinstance(pdb_ids, list):
+        chain = None
 
     if isinstance(pdb_ids, str):
         pdb_ids = [pdb_ids]
