@@ -9,7 +9,7 @@ from klifs_utils.util import _abc_idlist_to_dataframe
 from klifs_utils.klifs_client import KLIFS_CLIENT
 
 
-def structures_from_structure_id(structure_ids):
+def structures_from_structure_ids(structure_ids):
     """
     Get structure details by KLIFS structure ID(s).
 
@@ -21,7 +21,10 @@ def structures_from_structure_id(structure_ids):
     Returns
     -------
     pandas.DataFrame
-        Structure details.
+        Structure details (KLIFS structure IDs, kinase names, species, PDB ID,
+        alternate model, chain, RMSD 1+2, pocket sequence, resolution, quality score, missing residues, missing atoms,
+        orthosteric and allosteric ligand, DFG conformation, aC helix conformation, G-rich distance, G-rich angle,
+        and subpockets).
     """
 
     if isinstance(structure_ids, int):
@@ -33,7 +36,7 @@ def structures_from_structure_id(structure_ids):
     return result_df
 
 
-def structures_from_kinase_id(kinase_ids):
+def structures_from_kinase_ids(kinase_ids):
     """
     Get structure details by KLIFS kinase ID(s).
 
@@ -45,7 +48,10 @@ def structures_from_kinase_id(kinase_ids):
     Returns
     -------
     pandas.DataFrame
-        Structure details.
+        Structure details (KLIFS structure IDs, kinase names, species, PDB ID,
+        alternate model, chain, RMSD 1+2, pocket sequence, resolution, quality score, missing residues, missing atoms,
+        orthosteric and allosteric ligand, DFG conformation, aC helix conformation, G-rich distance, G-rich angle,
+        and subpockets).
     """
 
     if isinstance(kinase_ids, int):
@@ -57,7 +63,7 @@ def structures_from_kinase_id(kinase_ids):
     return result_df
 
 
-def structures_from_pdb_id(pdb_ids, alt=None, chain=None):
+def structures_from_pdb_ids(pdb_ids, alt=None, chain=None):
     """
     Get structure details by PDB ID(s), optionally filter by alternate model and chain.
 
@@ -73,7 +79,10 @@ def structures_from_pdb_id(pdb_ids, alt=None, chain=None):
     Returns
     -------
     pandas.DataFrame
-        Structure details.
+        Structure details (KLIFS structure IDs, kinase names, species, PDB ID,
+        alternate model, chain, RMSD 1+2, pocket sequence, resolution, quality score, missing residues, missing atoms,
+        orthosteric and allosteric ligand, DFG conformation, aC helix conformation, G-rich distance, G-rich angle,
+        and subpockets).
     """
 
     # Ignore alternate model and chain input (set to None) in these two cases:
