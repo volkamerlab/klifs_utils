@@ -30,7 +30,7 @@ def mol2_to_dataframe(structure_id):
     return structure_df
 
 
-def mol2_to_rdkit_mol(structure_id):
+def mol2_to_rdkit_mol(structure_id, compute2d=True):
     """
     Get ligand structural data content (mol2 file) from KLIFS database.
 
@@ -38,6 +38,8 @@ def mol2_to_rdkit_mol(structure_id):
     ----------
     structure_id : str
         KLIFS structure ID.
+    compute2d : bool
+        Compute 2D coordinates for ligand (default).
 
     Returns
     -------
@@ -46,7 +48,7 @@ def mol2_to_rdkit_mol(structure_id):
     """
 
     mol2_text = _ligand_mol2_text(structure_id)
-    mol = _mol2_text_to_rdkit_mol(mol2_text)
+    mol = _mol2_text_to_rdkit_mol(mol2_text, compute2d)
 
     return mol
 

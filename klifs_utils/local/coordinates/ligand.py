@@ -44,7 +44,7 @@ def mol2_to_dataframe(klifs_download_path, species, kinase_name, pdb_id, alt=Non
     return structure_df.df
 
 
-def mol2_to_rdkit_mol(klifs_download_path, species, kinase_name, pdb_id, alt=None, chain=None):
+def mol2_to_rdkit_mol(klifs_download_path, species, kinase_name, pdb_id, alt=None, chain=None, compute2d=True):
     """
     Get ligand structural data content (mol2 file) from local file.
 
@@ -62,6 +62,8 @@ def mol2_to_rdkit_mol(klifs_download_path, species, kinase_name, pdb_id, alt=Non
         Alternate model ID.
     chain : str
         Chain ID.
+    compute2d : bool
+        Compute 2D coordinates for ligand (default).
 
     Returns
     -------
@@ -70,7 +72,7 @@ def mol2_to_rdkit_mol(klifs_download_path, species, kinase_name, pdb_id, alt=Non
     """
 
     mol2_file = _mol2_path('ligand', klifs_download_path, species, kinase_name, pdb_id, alt, chain)
-    mol = _mol2_file_to_rdkit_mol(str(mol2_file))
+    mol = _mol2_file_to_rdkit_mol(str(mol2_file), compute2d)
 
     return mol
 
