@@ -24,7 +24,7 @@ def interaction_types():
     return _abc_idlist_to_dataframe(result)
 
 
-def interaction_fingerprint(structure_ids):
+def interaction_fingerprint_from_structure_ids(structure_ids):
     """
     Get interaction fingerprint(s) from KLIFS structure ID(s).
 
@@ -36,7 +36,7 @@ def interaction_fingerprint(structure_ids):
     Returns
     -------
     pandas.DataFrame
-        KLIFS interaction fingerprint(s).
+        KLIFS interaction fingerprint(s) (KLIFS structure ID and interaction fingerprint).
     """
 
     if isinstance(structure_ids, int):
@@ -49,7 +49,7 @@ def interaction_fingerprint(structure_ids):
     return _abc_idlist_to_dataframe(result)
 
 
-def klifs_pocket_numbering(structure_id):
+def klifs_pocket_numbering_from_structure_id(structure_id):
     """
     Get KLIFS pocket numbering (PDB vs. KLIFS numbering).
 
@@ -61,7 +61,8 @@ def klifs_pocket_numbering(structure_id):
     Returns
     -------
     pandas.DataFrame
-        KLIFS pocket numbering.
+        KLIFS pocket numbering (KLIFS numbering, PDB numbering and KLIFS position
+        (<structural element>.<residue index>)).
     """
 
     result = KLIFS_CLIENT.Interactions.get_interactions_match_residues(
