@@ -73,7 +73,7 @@ def kinase_names(kinase_group=None, kinase_family=None, species=None):
     return _abc_idlist_to_dataframe(results)
 
 
-def kinase_from_kinase_names(kinase_names, species=None):
+def kinases_from_kinase_names(kinase_names, species=None):
     """
     Get all kinases (+details) by kinase name(s).
 
@@ -108,7 +108,7 @@ def kinase_from_kinase_names(kinase_names, species=None):
     return pd.concat(results)
 
 
-def kinase_from_kinase_ids(kinase_ids):
+def kinases_from_kinase_ids(kinase_ids):
     """
     Get all kinases (+details) by KLIFS kinase ID(s).
 

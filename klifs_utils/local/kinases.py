@@ -60,7 +60,7 @@ def kinase_names(klifs_metadata):
     return klifs_metadata
 
 
-def kinase_from_kinase_names(klifs_metadata, kinase_names, species=None):
+def kinases_from_kinase_names(klifs_metadata, kinase_names, species=None):
     """
     Get all kinases (+details) by kinase name(s).
 
@@ -80,7 +80,7 @@ def kinase_from_kinase_names(klifs_metadata, kinase_names, species=None):
     return
 
 
-def kinase_from_kinase_ids(klifs_metadata, kinase_ids):
+def kinases_from_kinase_ids(klifs_metadata, kinase_ids):
     """
     Get all kinases (+details) by KLIFS kinase ID(s).
 
