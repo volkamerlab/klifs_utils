@@ -146,7 +146,7 @@ def _mol2_file_to_dataframe(mol2_file):
     return mol2_df
 
 
-def _mol2_file_to_rdkit_mol(mol2_file):
+def _mol2_file_to_rdkit_mol(mol2_file, compute2d=True):
     """
     Get structural data from mol2 file.
 
@@ -154,6 +154,8 @@ def _mol2_file_to_rdkit_mol(mol2_file):
     ----------
     mol2_file : pathlib.Path or str
        Path to mol2 file.
+    compute2d : bool
+        Compute 2D coordinates for ligand (default).
 
     Returns
     -------
@@ -162,7 +164,9 @@ def _mol2_file_to_rdkit_mol(mol2_file):
     """
 
     mol = Chem.MolFromMol2File(mol2_file)
-    AllChem.Compute2DCoords(mol)
+
+    if compute2d:
+        AllChem.Compute2DCoords(mol)
 
     return mol
 
@@ -208,7 +212,7 @@ def _mol2_text_to_dataframe(mol2_text):
     return mol2_df
 
 
-def _mol2_text_to_rdkit_mol(mol2_text):
+def _mol2_text_to_rdkit_mol(mol2_text, compute2d=True):
     """
     Get structural data from mol2 text.
 
@@ -216,6 +220,8 @@ def _mol2_text_to_rdkit_mol(mol2_text):
     ----------
     mol2_text : str
        Mol2 file content from KLIFS database.
+    compute2d : bool
+        Compute 2D coordinates for ligand (default).
 
     Returns
     -------
@@ -224,7 +230,9 @@ def _mol2_text_to_rdkit_mol(mol2_text):
     """
 
     mol = Chem.MolFromMol2Block(mol2_text)
-    AllChem.Compute2DCoords(mol)
+
+    if compute2d:
+        AllChem.Compute2DCoords(mol)
 
     return mol
 

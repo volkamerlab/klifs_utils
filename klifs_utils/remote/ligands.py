@@ -11,7 +11,7 @@ from klifs_utils.util import _abc_idlist_to_dataframe
 from klifs_utils.klifs_client import KLIFS_CLIENT
 
 
-def ligand_ids(kinase_ids):
+def ligands_from_kinase_ids(kinase_ids):
     """
     Get ligand ID(s) and details by KLIFS kinase ID(s).
 
@@ -23,7 +23,7 @@ def ligand_ids(kinase_ids):
     Returns
     -------
     pandas.DataFrame
-        Ligand(s) details.
+        Ligand(s) details (KLIFS kinase IDs, KLIFS ligand IDs, ligand PDB code, ligand name, SMILES, and InChIKey).
     """
 
     if isinstance(kinase_ids, int):
@@ -40,7 +40,7 @@ def ligand_ids(kinase_ids):
     return pd.concat(results)
 
 
-def structure_ids(ligand_ids):
+def structures_from_ligand_ids(ligand_ids):
     """
     Get structure ID(s) and details by KLIFS ligand ID(s).
 
@@ -52,7 +52,10 @@ def structure_ids(ligand_ids):
     Returns
     -------
     pandas.DataFrame
-        Structure(s) details.
+        Structure(s) details (KLIFS ligand IDs, KLIFS structure IDs, KLIFS kinase IDs, kinase names, species, PDB ID,
+        alternate model, chain, RMSD 1+2, pocket sequence, resolution, quality score, missing residues, missing atoms,
+        orthosteric and allosteric ligand, DFG conformation, aC helix conformation, G-rich distance, G-rich angle,
+        and subpockets).
     """
 
     if isinstance(ligand_ids, int):

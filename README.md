@@ -7,6 +7,8 @@ klifs_utils
 
 Utility functions to work with KLIFS data
 
+**This package is WIP, the API is not final. Please refer to "issues" to check on the next steps.**
+
 
 ### KLIFS
 
@@ -47,7 +49,7 @@ What is KLIFS and who created it?
     
 Alternative if you already have the `klifs_utils` environment installed:
 ```bash
-pip install git+https://github.com/volkamerlab/klifs_utils.git@lib-skeleton
+pip install https://github.com/volkamerlab/klifs_utils/archive/master.tar.gz
 ```
 
 
@@ -65,7 +67,7 @@ The `klifs_utils.remote` module offers you to access KLIFS data from the KLIFS s
 
 This module uses the official KLIFS API: https://klifs.vu-compmedchem.nl/swagger.
 
-#### Work with KLIFs data from disc (locally)
+#### Work with KLIFS data from disc (locally)
 
 The `klifs_utils.local` module offers you to access KLIFS data from the KLIFS server. In order to make use of the
 module's functionality, you need a KLIFS download folder `KLIFS_download` with the following structure:
@@ -74,7 +76,7 @@ module's functionality, you need a KLIFS download folder `KLIFS_download` with t
 └── KLIFS_download
     ├── KLIFS_export.csv           # Metadata file
     ├── overview.csv               # Metadata file
-    └── HUMAN     	               # Species name  
+    └── HUMAN     	               # Species name
         ├── AAK1                   # Kinase name
         │   ├── 4wsq_altA_chainA   # PDB ID, alternate model ID, chain ID
         │   │   ├── complex.mol2
@@ -88,9 +90,51 @@ module's functionality, you need a KLIFS download folder `KLIFS_download` with t
 
 Download KLIFS data from: https://klifs.vu-compmedchem.nl
 
+### Library structure
+
+The libraries structure looks like this, trying have the same API for both modules `local` and `remote` (whenever possible):
+
+```
+
+├── local/
+│   ├── coordinates/
+│   │   ├── complex.py
+│   │   ├── ligand.py
+│   │   ├── protein.py
+│   │   ├── pocket.py
+│   │   └── water.py
+│   ├── initialize.py
+│   ├── interactions.py
+│   ├── kinases.py
+│   ├── ligands.py
+│   └── structures.py
+├── remote/
+│   ├── coordinates/
+│   │   ├── complex.py
+│   │   ├── ligand.py
+│   │   ├── protein.py
+│   │   └── pocket.py
+│   ├── interactions.py
+│   ├── kinases.py
+│   ├── ligands.py
+│   └── structures.py
+└── util.py
+```
+
+This structure mirrors the KLIFS Swagger API structure in the following way to access different kinds of information both remotely and locally:
+
+- `kinases` (in KLIFS called `information`): Get information about kinases (groups, families, names)
+- `interactions`: Get interaction fingerprint via structure_ID
+- `ligands`: Get ligand information
+- `structures`: Get structure information
+- `coordinates` (in KLIFS part of `structures`): Get structural data (structure coordinates)
+
+Note: In order to use the `local` module, it is necessary to initialize a metadata file (`local.initialize` module).
+
+
 ### Copyright
 
-Copyright (c) 2020, Dominique Sydow
+Copyright (c) 2020, Volkamer Lab
 
 
 #### Acknowledgements

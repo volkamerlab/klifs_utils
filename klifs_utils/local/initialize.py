@@ -68,7 +68,7 @@ def _from_klifs_export_file(klifs_export_path):
         columns={
             'NAME': 'kinase',
             'FAMILY': 'family',
-            'GROUPS': 'groups',
+            'GROUPS': 'group',
             'PDB': 'pdb_id',
             'CHAIN': 'chain',
             'ALTERNATE_MODEL': 'alternate_model',
