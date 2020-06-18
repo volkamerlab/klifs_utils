@@ -11,7 +11,7 @@ from klifs_utils.util import _abc_idlist_to_dataframe
 from klifs_utils.klifs_client import KLIFS_CLIENT
 
 
-def ligand_ids(kinase_ids):
+def ligands_from_kinase_ids(kinase_ids):
     """
     Get ligand ID(s) and details by KLIFS kinase ID(s).
 
@@ -23,7 +23,7 @@ def ligand_ids(kinase_ids):
     Returns
     -------
     pandas.DataFrame
-        Ligand(s) details.
+        Ligand(s) details (KLIFS kinase IDs, KLIFS ligand IDs, ligand PDB code, ligand name, SMILES, and InChIKey).
     """
 
     if isinstance(kinase_ids, int):
