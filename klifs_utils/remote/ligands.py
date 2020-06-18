@@ -40,7 +40,7 @@ def ligands_from_kinase_ids(kinase_ids):
     return pd.concat(results)
 
 
-def structure_ids(ligand_ids):
+def structures_from_ligand_ids(ligand_ids):
     """
     Get structure ID(s) and details by KLIFS ligand ID(s).
 
@@ -52,7 +52,10 @@ def structure_ids(ligand_ids):
     Returns
     -------
     pandas.DataFrame
-        Structure(s) details.
+        Structure(s) details (KLIFS ligand IDs, KLIFS structure IDs, KLIFS kinase IDs, kinase names, species, PDB ID,
+        alternate model, chain, RMSD 1+2, pocket sequence, resolution, quality score, missing residues, missing atoms,
+        orthosteric and allosteric ligand, DFG conformation, aC helix conformation, G-rich distance, G-rich angle,
+        and subpockets).
     """
 
     if isinstance(ligand_ids, int):
