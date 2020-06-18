@@ -4,7 +4,7 @@ Utility functions to work with KLIFS data
 """
 
 # Add imports here
-from .klifs_utils import *
+from . import remote, local
 
 # Handle versioneer
 from ._version import get_versions
