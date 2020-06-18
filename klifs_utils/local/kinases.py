@@ -16,7 +16,7 @@ def kinase_groups(klifs_metadata):
         Kinase group names.
     """
 
-    kinase_groups = klifs_metadata.groups.unique().tolist()
+    kinase_groups = klifs_metadata.group.unique().tolist()
 
     return kinase_groups
 
@@ -37,7 +37,7 @@ def kinase_families(klifs_metadata, kinase_group=None):
     """
 
     if kinase_group:
-        klifs_metadata = klifs_metadata[klifs_metadata.groups == kinase_group]
+        klifs_metadata = klifs_metadata[klifs_metadata.group == kinase_group]
 
     kinase_families = klifs_metadata.family.unique().tolist()
 
