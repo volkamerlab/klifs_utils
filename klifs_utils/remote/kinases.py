@@ -61,7 +61,7 @@ def kinase_names(kinase_group=None, kinase_family=None, species=None):
     Returns
     -------
     pandas.DataFrame
-        Kinase names with details.
+        Kinase names with details (kinase KLIFS ID, kinase name (abbreviation and full), and species).
     """
 
     results = KLIFS_CLIENT.Information.get_kinase_names(
@@ -87,7 +87,8 @@ def kinase_from_kinase_names(kinase_names, species=None):
     Returns
     -------
     pandas.DataFrame
-        Kinase(s) details.
+        Kinase(s) details (kinase KLIFS IDs, names (abbreviation, HGNC, and full), family, gropu, kinase class, species,
+        UniProt ID, IUPHAR ID and pocket sequence).
     """
 
     if isinstance(kinase_names, str):
@@ -119,7 +120,8 @@ def kinase_from_kinase_ids(kinase_ids):
     Returns
     -------
     pandas.DataFrame
-        Kinase(s) details.
+        Kinase(s) details (kinase KLIFS IDs, names (abbreviation, HGNC, and full), family, gropu, kinase class, species,
+        UniProt ID, IUPHAR ID and pocket sequence).
     """
 
     if isinstance(kinase_ids, int):
