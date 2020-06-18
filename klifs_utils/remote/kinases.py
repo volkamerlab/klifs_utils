@@ -133,7 +133,6 @@ def kinase_from_kinase_ids(kinase_ids):
             kinase_ID=[kinase_id]
         ).response().result
         result_df = _abc_idlist_to_dataframe(result)
-        result_df.insert(0, 'ligand_id', kinase_id, True)
         results.append(result_df)
 
     return pd.concat(results)
