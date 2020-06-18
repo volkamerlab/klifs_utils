@@ -73,13 +73,13 @@ def kinase_names(kinase_group=None, kinase_family=None, species=None):
     return _abc_idlist_to_dataframe(results)
 
 
-def kinase_from_kinase_name(kinase_name, species=None):
+def kinase_from_kinase_names(kinase_names, species=None):
     """
     Get all kinases (+details) by kinase name(s).
 
     Parameters
     ----------
-    kinase_name : str
+    kinase_names : str or list of str
         Kinase name.
     species : None or str
         Species name (default is None, i.e. all species are selected).
@@ -90,12 +90,21 @@ def kinase_from_kinase_name(kinase_name, species=None):
         Kinase(s) details.
     """
 
-    results = KLIFS_CLIENT.Information.get_kinase_ID(
-        kinase_name=kinase_name,
-        species=species
-    ).response().result
+    if isinstance(kinase_names, str):
+        kinase_names = [kinase_names]
 
-    return _abc_idlist_to_dataframe(results)
+    results = []
+
+    for kinase_name in kinase_names:
+
+        result = KLIFS_CLIENT.Information.get_kinase_ID(
+            kinase_name=kinase_name,
+            species=species
+        ).response().result
+        result_df = _abc_idlist_to_dataframe(result)
+        results.append(result_df)
+
+    return pd.concat(results)
 
 
 def kinase_from_kinase_ids(kinase_ids):
