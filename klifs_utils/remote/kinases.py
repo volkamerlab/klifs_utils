@@ -98,14 +98,23 @@ def kinases_from_kinase_names(kinase_names, species=None):
 
     for kinase_name in kinase_names:
 
-        result = KLIFS_CLIENT.Information.get_kinase_ID(
-            kinase_name=kinase_name,
-            species=species
-        ).response().result
-        result_df = _abc_idlist_to_dataframe(result)
-        results.append(result_df)
+        try:
 
-    return pd.concat(results)
+            result = KLIFS_CLIENT.Information.get_kinase_ID(
+                kinase_name=kinase_name,
+                species=species
+            ).response().result
+            result_df = _abc_idlist_to_dataframe(result)
+            results.append(result_df)
+
+        except Exception as e:
+            print(f'Kinase {kinase_name}: {e}')
+
+    # Kinase IDs can occur multiple times if the input kinase names describe the same kinase, thus drop duplicates
+    kinases = pd.concat(results)
+    kinases = kinases.drop_duplicates('kinase_ID').reset_index(drop=True)
+
+    return kinases
 
 
 def kinases_from_kinase_ids(kinase_ids):
