@@ -49,6 +49,9 @@ def file_path(path, species, kinase, pdb, alt, chain, entity='complex', format='
         File path.
     """
 
+    species = species.upper()
+    alt = alt.replace('-', '')
+    chain = chain.replace('-', '')
     structure = f"{pdb}{f'_alt{alt}' if bool(alt) else ''}{f'_chain{chain}' if bool(chain) else ''}"
 
     if in_dir:
@@ -73,20 +76,14 @@ def check_entity_format(entity, input_format, output_format=None):
         Output format: text (only in remote module), biopandas, or rdkit (only for entity=ligand).
     """
 
-    entities = COORDINATES_ENTITIES.copy()
-    # No remote access to water, thus remove from list
-    entities.remove('water')
-    input_formats = COORDINATES_INPUT_FORMATS
-    output_formats = COORDINATES_OUTPUT_FORMATS
-
     # Check if parameters are valid
-    if entity not in entities:
-        raise ValueError(f'Invalid entity. Select from {", ".join(entities)}.')
-    if input_format not in input_formats:
-        raise ValueError(f'Invalid input format. Select from {", ".join(input_formats)}.')
+    if entity not in COORDINATES_ENTITIES:
+        raise ValueError(f'Invalid entity. Select from {", ".join(COORDINATES_ENTITIES)}.')
+    if input_format not in COORDINATES_INPUT_FORMATS:
+        raise ValueError(f'Invalid input format. Select from {", ".join(COORDINATES_INPUT_FORMATS)}.')
     if output_format:
-        if output_format not in output_formats:
-            raise ValueError(f'Invalid output format. Select from {", ".join(output_formats)}.')
+        if output_format not in COORDINATES_OUTPUT_FORMATS:
+            raise ValueError(f'Invalid output format. Select from {", ".join(COORDINATES_OUTPUT_FORMATS)}.')
 
     # Check if parameter combination is valid
     if input_format == 'pdb' and entity != 'complex':

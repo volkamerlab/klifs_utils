@@ -32,6 +32,8 @@ def load(file_path, output_format='biopandas', compute2d=True):
     """
 
     file_path = Path(file_path)
+    if not file_path.exists():
+        raise FileNotFoundError(f'File does not exist: {file_path}.')
 
     # Check if parameters are valid
     entity = file_path.stem

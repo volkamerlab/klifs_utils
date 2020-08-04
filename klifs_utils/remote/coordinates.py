@@ -40,6 +40,8 @@ def fetch(structure_id, entity='complex', input_format='mol2', output_format='bi
 
     # Fetch text from KLIFS
     text = _fetch_text(structure_id, entity, input_format)
+    if not text:  # TODO Ask Albert why no remote water
+        raise ValueError(f'Entity {entity} is not available remotely but we could ask Albert to add this.')
 
     # Return different output formats
     if output_format == 'text':
@@ -94,6 +96,8 @@ def save(structure_id, output_path, entity='complex', input_format='mol2', in_di
 
     # Get text
     text = fetch(structure_id, entity, input_format, output_format='text')
+    if not text:  # TODO Ask Albert why no remote water
+        raise ValueError(f'Entity {entity} is not available remotely but we could ask Albert to add this.')
 
     # Save text to file
     with open(output_path, 'w') as f:
