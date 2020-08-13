@@ -30,15 +30,16 @@ What is KLIFS and who created it?
 1. Download GitHub repo:
 
     ```bash
-    git clone https://github.com/dominiquesydow/klifs_utils.git
+    git clone https://github.com/volkamerlab/klifs_utils.git
     ```
     
     The library lives now in this example path `/path/to/klifs_utils`.
     
 2. Install and activate conda environment `klifs_utils`:
     ```bash
-    conda env create -f /path/to/klifs_utils/devtools/conda_envs/env.yaml
-    conda activate klifs
+    cd /path/to/klifs_utils/devtools/conda_envs/
+    conda env create -f env.yaml
+    conda activate klifs_utils
     ```
 
 3. Install library in conda environment while being in path `/path/to`:
