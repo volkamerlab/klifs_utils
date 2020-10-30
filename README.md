@@ -1,13 +1,14 @@
-klifs_utils
+klifs_utils (deprecated)
 ==============================
+
+## This package has been moved to and extended in the [`opencadd`](https://github.com/volkamerlab/opencadd) package.
+## Please checkout the documention for the new package [here](https://opencadd.readthedocs.io/en/latest/databases_klifs.html).
 [//]: # (Badges)
 [![Travis Build Status](https://travis-ci.com/REPLACE_WITH_OWNER_ACCOUNT/klifs_utils.svg?branch=master)](https://travis-ci.com/REPLACE_WITH_OWNER_ACCOUNT/klifs_utils)
 [![AppVeyor Build status](https://ci.appveyor.com/api/projects/status/REPLACE_WITH_APPVEYOR_LINK/branch/master?svg=true)](https://ci.appveyor.com/project/REPLACE_WITH_OWNER_ACCOUNT/klifs_utils/branch/master)
 [![codecov](https://codecov.io/gh/REPLACE_WITH_OWNER_ACCOUNT/klifs_utils/branch/master/graph/badge.svg)](https://codecov.io/gh/REPLACE_WITH_OWNER_ACCOUNT/klifs_utils/branch/master)
 
 Utility functions to work with KLIFS data
-
-**This package is WIP, the API is not final. Please refer to "issues" to check on the next steps.**
 
 
 ### KLIFS
