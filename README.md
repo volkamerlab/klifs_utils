@@ -1,4 +1,4 @@
-klifs_utils (deprecated)
+klifs_utils
 ==============================
 
 ## This package has been moved to and extended in the [`opencadd`](https://github.com/volkamerlab/opencadd) package.
