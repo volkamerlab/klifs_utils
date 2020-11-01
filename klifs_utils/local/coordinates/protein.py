@@ -8,8 +8,8 @@ Protein coordinates.
 from bravado.client import SwaggerClient
 
 from klifs_utils.util import _mol2_path, _mol2_file_to_dataframe
+from klifs_utils.klifs_client import KLIFS_API_DEFINITIONS
 
-KLIFS_API_DEFINITIONS = "http://klifs.vu-compmedchem.nl/swagger/swagger.json"
 KLIFS_CLIENT = SwaggerClient.from_url(KLIFS_API_DEFINITIONS, config={'validate_responses': False})
 
 
